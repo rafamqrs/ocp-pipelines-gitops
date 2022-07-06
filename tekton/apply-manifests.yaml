@@ -1,0 +1,43 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  creationTimestamp: "2022-07-05T22:06:05Z"
+  generation: 3
+  managedFields:
+  - apiVersion: tekton.dev/v1beta1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:spec:
+        .: {}
+        f:params: {}
+        f:steps: {}
+        f:workspaces: {}
+    manager: Mozilla
+    operation: Update
+    time: "2022-07-05T22:06:05Z"
+  name: apply-manifests
+  namespace: spring-pipeline
+  resourceVersion: "588318"
+  uid: 8865b3ab-49dd-4092-af6b-a2b782a2f9b8
+spec:
+  params:
+  - default: k8s
+    description: The directory in source that contains yaml manifests
+    name: manifest_dir
+    type: string
+  steps:
+  - args:
+    - |-
+      echo Applying manifests in $(inputs.params.manifest_dir) directory
+      cat $(inputs.params.manifest_dir)/deploy.yaml
+      oc apply -f $(inputs.params.manifest_dir)
+      echo -----------------------------------
+    command:
+    - /bin/bash
+    - -c
+    image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
+    name: apply
+    resources: {}
+    workingDir: /workspace/output
+  workspaces:
+  - name: output
