@@ -7,4 +7,5 @@ Create the projects:
 
 Create the tekton tasks on the spring-pipeline project.
 	- oc create -f ...
-
+Create the secret to push the updates to github
+        - github-token
