@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hello-service
+  name: hello-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: hello-service
+  template:
+    metadata:
+      labels:
+        deployment: hello-service
+    spec:
+      containers:
+      - image: image-registry.openshift-image-registry.svc:5000/hello-spring-dev/hello-service@sha256:ca628779ad19b1924f729f0f4678395d358231c15129997cfbec8c4b7821886d
+        imagePullPolicy: IfNotPresent
+        name: hello-service
+        ports:
+        - containerPort: 8778
+          protocol: TCP
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File

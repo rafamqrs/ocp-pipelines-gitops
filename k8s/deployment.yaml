@@ -9,11 +9,11 @@ metadata:
 spec:
   replicas: 1
   selector:
-    deploymentconfig: hello-service
+      app: hello-service
   template:
     metadata:
       labels:
-        deploymentconfig: hello-service
+        app: hello-service
     spec:
       containers:
         - name: hello-service
